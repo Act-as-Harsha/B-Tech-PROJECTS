@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KL University Club Registration</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+    }
+
+    .container, .form-container, .club-container, .club-explanation-container, .thank-you-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"], input[type="email"], input[type="date"], input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #003366;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .exit-button {
+      background-color: #e74c3c;
+    }
+    .exit-button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login container -->
+  <div class="container" id="login-container">
+    <h1>Welcome to KL University</h1>
+    <button onclick="showStudentInformation()">Login</button>
+  </div>
+
+  <!-- Student Information Form -->
+  <div class="form-container" id="form-container" style="display: none;">
+    <h2>Please Enter Your Details</h2>
+    <form id="student-info-form" onsubmit="showClubSelection(event)">
+      <input type="text" id="student-name" name="student-name" placeholder="Full Name" required>
+      <input type="email" id="student-email" name="student-email" placeholder="Email" required>
+      <input type="date" id="student-dob" name="student-dob" required>
+      <input type="number" id="student-phone" name="student-phone" placeholder="Phone Number" required>
+      <button type="submit">Submit Details</button>
+    </form>
+  </div>
+
+  <!-- Club Activity Selection Page -->
+  <div class="club-container" id="club-container" style="display: none;">
+    <h2>Choose Your Club Activity</h2>
+    <form id="clubForm" onsubmit="showClubExplanation(event)">
+      <select id="club-selection" name="club-selection">
+        <option value="technical">Technical Club</option>
+        <option value="non-technical">Non-Technical Club</option>
+        <option value="sports">Sports Club</option>
+      </select>
+      <button type="submit">Next</button>
+    </form>
+  </div>
+
+  <!-- Club Explanation Pages -->
+  <div class="club-explanation-container" id="technical-explanation" style="display: none;">
+    <h3>Technical Club</h3>
+    <p>The Technical Club is for students who are passionate about technology, programming, and innovation. We organize workshops, hackathons, and coding competitions.</p>
+    <button onclick="showThankYouPage()">Join Technical Club</button>
+  </div>
+
+  <div class="club-explanation-container" id="non-technical-explanation" style="display: none;">
+    <h3>Non-Technical Club</h3>
+    <p>The Non-Technical Club focuses on cultural, creative, and soft-skill development activities. It includes events such as public speaking sessions, cultural events, and management workshops.</p>
+    <button onclick="showThankYouPage()">Join Non-Technical Club</button>
+  </div>
+
+  <div class="club-explanation-container" id="sports-explanation" style="display: none;">
+    <h3>Sports Club</h3>
+    <p>The Sports Club offers a platform for students to engage in physical activities and sports events. It includes football, cricket, fitness programs, and tournaments.</p>
+    <button onclick="showThankYouPage()">Join Sports Club</button>
+  </div>
+
+  <!-- Thank You Page -->
+  <div class="thank-you-container" id="thank-you-container" style="display: none;">
+    <h1>Thank You for Joining the KL University Club!</h1>
+    <p>We are excited to have you as part of our community. Best of luck with your activities!</p>
+    <button class="exit-button" onclick="exitPage()">Exit</button>
+  </div>
+
+  <script>
+    // Function to show the student information form after login
+    function showStudentInformation() {
+      document.getElementById('login-container').style.display = 'none';
+      document.getElementById('form-container').style.display = 'block';
+    }
+
+    // Function to show the club selection page after submitting student info
+    function showClubSelection(event) {
+      event.preventDefault(); // Prevent form submission
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('club-container').style.display = 'block';
+    }
+
+    // Function to show the club explanation page based on selected club
+    function showClubExplanation(event) {
+      event.preventDefault(); // Prevent form submission
+      const clubSelection = document.getElementById('club-selection').value;
+
+      // Hide club selection and show the explanation page based on club selection
+      document.getElementById('club-container').style.display = 'none';
+      
+      if (clubSelection === 'technical') {
+        document.getElementById('technical-explanation').style.display = 'block';
+      } else if (clubSelection === 'non-technical') {
+        document.getElementById('non-technical-explanation').style.display = 'block';
+      } else if (clubSelection === 'sports') {
+        document.getElementById('sports-explanation').style.display = 'block';
+      }
+    }
+
+    // Function to show the Thank You page after joining a club
+    function showThankYouPage() {
+      document.getElementById('technical-explanation').style.display = 'none';
+      document.getElementById('non-technical-explanation').style.display = 'none';
+      document.getElementById('sports-explanation').style.display = 'none';
+      document.getElementById('thank-you-container').style.display = 'block';
+    }
+
+    // Function to exit the process and close the window
+    function exitPage() {
+      window.close(); // This closes the window
+    }
+  </script>
+
+</body>
+</html>
